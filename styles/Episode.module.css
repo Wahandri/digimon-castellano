@@ -1,0 +1,64 @@
+.container {
+  padding: 2rem;
+  background: #111;
+  color: #fff;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.header {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #00bcd4;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.back:hover {
+  color: #4de2ff;
+}
+
+.videoWrapper {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+  margin-bottom: 2rem;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.navBtn {
+  background: #00bcd4;
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+
+.navBtn:hover {
+  background: #4de2ff;
+}

@@ -1,0 +1,260 @@
+[
+  {
+    "id": 1,
+    "title": "Vacaciones de verano",
+    "url": "https://tiny.cc/digi-01"
+  },
+  {
+    "id": 2,
+    "title": "El nacimiento de Greymon",
+    "url": "https://tiny.cc/digi-02"
+  },
+  {
+    "id": 3,
+    "title": "El nacimiento de Garurumon",
+    "url": "https://tiny.cc/digi-03"
+  },
+  { "id": 4, "title": "Sora en peligro", "url": "https://tiny.cc/digi-04" },
+  { "id": 5, "title": "Kabuterimon", "url": "https://tiny.cc/digi-05" },
+  {
+    "id": 6,
+    "title": "La transformación de Palmon",
+    "url": "https://tiny.cc/digi-06"
+  },
+  {
+    "id": 7,
+    "title": "El rugido de Ikkakumon",
+    "url": "https://tiny.cc/digi-07"
+  },
+  {
+    "id": 8,
+    "title": "Devimon, el mensajero de la oscuridad",
+    "url": "https://tiny.cc/digi-08"
+  },
+  {
+    "id": 9,
+    "title": "El choque con los Digimons más fríos",
+    "url": "https://tiny.cc/digi-09"
+  },
+  {
+    "id": 10,
+    "title": "Centarumon, el guardián",
+    "url": "https://tiny.cc/digi-10"
+  },
+  {
+    "id": 11,
+    "title": "Bakemon, el fantasma bailarín",
+    "url": "https://tiny.cc/digi-11"
+  },
+  {
+    "id": 12,
+    "title": "La aventura de Patamon y TK",
+    "url": "https://tiny.cc/digi-12"
+  },
+  {
+    "id": 13,
+    "title": "La aparición de Angemon",
+    "url": "https://tiny.cc/digi-13"
+  },
+  {
+    "id": 14,
+    "title": "Partiendo hacia un nuevo continente",
+    "url": "https://tiny.cc/digi-14"
+  },
+  {
+    "id": 15,
+    "title": "Etemon, el terror del escenario",
+    "url": "https://tiny.cc/digi-15"
+  },
+  {
+    "id": 16,
+    "title": "La digievolución oscura, Skullgreymon",
+    "url": "https://tiny.cc/digi-16"
+  },
+  {
+    "id": 17,
+    "title": "Kokatorimon, el capitán del barco fantasma",
+    "url": "https://tiny.cc/digi-17"
+  },
+  {
+    "id": 18,
+    "title": "Piximon, el hada Digimon",
+    "url": "https://tiny.cc/digi-18"
+  },
+  {
+    "id": 19,
+    "title": "Datamon en el laberinto",
+    "url": "https://tiny.cc/digi-19"
+  },
+  {
+    "id": 20,
+    "title": "Metalgreymon, la digievolución perfecta",
+    "url": "https://tiny.cc/digi-20"
+  },
+  {
+    "id": 21,
+    "title": "La gran aventura de Koromon en Tokio",
+    "url": "https://tiny.cc/digi-21"
+  },
+  {
+    "id": 22,
+    "title": "Demidevimon el pequeño demonio intrigante",
+    "url": "https://tiny.cc/digi-22"
+  },
+  {
+    "id": 23,
+    "title": "Mi amigo Weregarurumon",
+    "url": "https://tiny.cc/digi-23"
+  },
+  {
+    "id": 24,
+    "title": "El poder de Megakabuterimon",
+    "url": "https://tiny.cc/digi-24"
+  },
+  {
+    "id": 25,
+    "title": "Shogungekomon, el tirano durmiente",
+    "url": "https://tiny.cc/digi-25"
+  },
+  {
+    "id": 26,
+    "title": "Las brillantes alas de Garudamon",
+    "url": "https://tiny.cc/digi-26"
+  },
+  {
+    "id": 27,
+    "title": "El castillo de la oscuridad de Myotismon",
+    "url": "https://tiny.cc/digi-27"
+  },
+  {
+    "id": 28,
+    "title": "¡Persecución! ¡Hay que volver enseguida a Japón!",
+    "url": "https://tiny.cc/digi-28"
+  },
+  {
+    "id": 29,
+    "title": "Combate en Hikarigaoka contra Mammothmon",
+    "url": "https://tiny.cc/digi-29"
+  },
+  {
+    "id": 30,
+    "title": "La gran travesía de los Digimon por Tokio",
+    "url": "https://tiny.cc/digi-30"
+  },
+  {
+    "id": 31,
+    "title": "Raremon ataca en la bahía de Tokio",
+    "url": "https://tiny.cc/digi-31"
+  },
+  {
+    "id": 32,
+    "title": "Skullmeramon y la ardiente torre de Tokio",
+    "url": "https://tiny.cc/digi-32"
+  },
+  {
+    "id": 33,
+    "title": "Pumpkinmon y Gotsumon. Dos Digimons de Shibuya",
+    "url": "https://tiny.cc/digi-33"
+  },
+  {
+    "id": 34,
+    "title": "Los lazos del destino de Gatomon",
+    "url": "https://tiny.cc/digi-34"
+  },
+  {
+    "id": 35,
+    "title": "Ha florecido Lilymon, el hada de Odaiba",
+    "url": "https://tiny.cc/digi-35"
+  },
+  {
+    "id": 36,
+    "title": "El explosivo golpe de Zudomon",
+    "url": "https://tiny.cc/digi-36"
+  },
+  {
+    "id": 37,
+    "title": "El ataque de los Digimon perfectos. La radiante Angewomon",
+    "url": "https://tiny.cc/digi-37"
+  },
+  {
+    "id": 38,
+    "title": "Venommyotismon, el rey demonio",
+    "url": "https://tiny.cc/digi-38"
+  },
+  {
+    "id": 39,
+    "title": "Dos ultradigievoluciones. ¡Acabemos con la oscuridad!",
+    "url": "https://tiny.cc/digi-39"
+  },
+  {
+    "id": 40,
+    "title": "Los Amos Oscuros. Los cuatro emperadores de la montaña del mal",
+    "url": "https://tiny.cc/digi-40"
+  },
+  {
+    "id": 41,
+    "title": "Metalseadramon el furioso rey del mar",
+    "url": "https://tiny.cc/digi-41"
+  },
+  {
+    "id": 42,
+    "title": "Whamon y el silencioso fondo del mar",
+    "url": "https://tiny.cc/digi-42"
+  },
+  {
+    "id": 43,
+    "title": "El peligroso juego de Puppetmon",
+    "url": "https://tiny.cc/digi-43"
+  },
+  {
+    "id": 44,
+    "title": "Cherrymon, el rey del bosque de la confusión",
+    "url": "https://tiny.cc/digi-44"
+  },
+  {
+    "id": 45,
+    "title": "Wargreymon contra Metalgarurumon",
+    "url": "https://tiny.cc/digi-45"
+  },
+  {
+    "id": 46,
+    "title": "El contraataque de Metaletemon",
+    "url": "https://tiny.cc/digi-46"
+  },
+  {
+    "id": 47,
+    "title": "Viento, luz, Saberleomon",
+    "url": "https://tiny.cc/digi-47"
+  },
+  {
+    "id": 48,
+    "title": "La orden de bombardeo de Machinedramon",
+    "url": "https://tiny.cc/digi-48"
+  },
+  {
+    "id": 49,
+    "title": "Adiós a los Numemon",
+    "url": "https://tiny.cc/digi-49"
+  },
+  {
+    "id": 50,
+    "title": "Ladydevimon y la lucha de las chicas",
+    "url": "https://tiny.cc/digi-50"
+  },
+  {
+    "id": 51,
+    "title": "Piedmon, el payaso infernal",
+    "url": "https://tiny.cc/digi-51"
+  },
+  {
+    "id": 52,
+    "title": "Magnaangemon, el caballero sagrado",
+    "url": "https://tiny.cc/digi-52"
+  },
+  {
+    "id": 53,
+    "title": "El último Digimon oscuro",
+    "url": "https://tiny.cc/digi-53"
+  },
+  { "id": 54, "title": "Un nuevo mundo", "url": "https://tiny.cc/digi-54" }
+]

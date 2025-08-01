@@ -1,0 +1,84 @@
+.container {
+  padding: 2rem;
+  background: #111;
+  color: #fff;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: #1e1e1e;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.number {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #fff;
+  margin-top: 0.4rem;
+}
+
+.title:hover {
+  color: #00bcd4;
+}
+
+.checkBtn {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.checkBtn:hover {
+  color: #0f0;
+}
+
+.visto {
+  color: #00e676;
+  font-weight: bold;
+}
+
+.banner {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
