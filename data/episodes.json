@@ -2,259 +2,325 @@
   {
     "id": 1,
     "title": "Vacaciones de verano",
-    "url": "https://tiny.cc/digi-01"
+    "url": "https://tiny.cc/digi-01",
+    "thumbnail": "/mini01.webp"
   },
   {
     "id": 2,
     "title": "El nacimiento de Greymon",
-    "url": "https://tiny.cc/digi-02"
+    "url": "https://tiny.cc/digi-02",
+    "thumbnail": "/mini02.webp"
   },
   {
     "id": 3,
     "title": "El nacimiento de Garurumon",
-    "url": "https://tiny.cc/digi-03"
+    "url": "https://tiny.cc/digi-03",
+    "thumbnail": "/mini03.webp"
   },
-  { "id": 4, "title": "Sora en peligro", "url": "https://tiny.cc/digi-04" },
-  { "id": 5, "title": "Kabuterimon", "url": "https://tiny.cc/digi-05" },
+  {
+    "id": 4,
+    "title": "Sora en peligro",
+    "url": "https://tiny.cc/digi-04",
+    "thumbnail": "/mini04.webp"
+  },
+  {
+    "id": 5,
+    "title": "Kabuterimon",
+    "url": "https://tiny.cc/digi-05",
+    "thumbnail": "/mini05.webp"
+  },
   {
     "id": 6,
     "title": "La transformación de Palmon",
-    "url": "https://tiny.cc/digi-06"
+    "url": "https://tiny.cc/digi-06",
+    "thumbnail": "/mini06.webp"
   },
   {
     "id": 7,
     "title": "El rugido de Ikkakumon",
-    "url": "https://tiny.cc/digi-07"
+    "url": "https://tiny.cc/digi-07",
+    "thumbnail": "/mini07.webp"
   },
   {
     "id": 8,
     "title": "Devimon, el mensajero de la oscuridad",
-    "url": "https://tiny.cc/digi-08"
+    "url": "https://tiny.cc/digi-08",
+    "thumbnail": "/mini08.webp"
   },
   {
     "id": 9,
     "title": "El choque con los Digimons más fríos",
-    "url": "https://tiny.cc/digi-09"
+    "url": "https://tiny.cc/digi-09",
+    "thumbnail": "/mini09.webp"
   },
   {
     "id": 10,
     "title": "Centarumon, el guardián",
-    "url": "https://tiny.cc/digi-10"
+    "url": "https://tiny.cc/digi-10",
+    "thumbnail": "/mini10.webp"
   },
   {
     "id": 11,
     "title": "Bakemon, el fantasma bailarín",
-    "url": "https://tiny.cc/digi-11"
+    "url": "https://tiny.cc/digi-11",
+    "thumbnail": "/mini11.webp"
   },
   {
     "id": 12,
     "title": "La aventura de Patamon y TK",
-    "url": "https://tiny.cc/digi-12"
+    "url": "https://tiny.cc/digi-12",
+    "thumbnail": "/mini12.webp"
   },
   {
     "id": 13,
     "title": "La aparición de Angemon",
-    "url": "https://tiny.cc/digi-13"
+    "url": "https://tiny.cc/digi-13",
+    "thumbnail": "/mini13.webp"
   },
   {
     "id": 14,
     "title": "Partiendo hacia un nuevo continente",
-    "url": "https://tiny.cc/digi-14"
+    "url": "https://tiny.cc/digi-14",
+    "thumbnail": "/mini14.webp"
   },
   {
     "id": 15,
     "title": "Etemon, el terror del escenario",
-    "url": "https://tiny.cc/digi-15"
+    "url": "https://tiny.cc/digi-15",
+    "thumbnail": "/mini15.webp"
   },
   {
     "id": 16,
     "title": "La digievolución oscura, Skullgreymon",
-    "url": "https://tiny.cc/digi-16"
+    "url": "https://tiny.cc/digi-16",
+    "thumbnail": "/mini16.webp"
   },
   {
     "id": 17,
     "title": "Kokatorimon, el capitán del barco fantasma",
-    "url": "https://tiny.cc/digi-17"
+    "url": "https://tiny.cc/digi-17",
+    "thumbnail": "/mini17.webp"
   },
   {
     "id": 18,
     "title": "Piximon, el hada Digimon",
-    "url": "https://tiny.cc/digi-18"
+    "url": "https://tiny.cc/digi-18",
+    "thumbnail": "/mini18.webp"
   },
   {
     "id": 19,
     "title": "Datamon en el laberinto",
-    "url": "https://tiny.cc/digi-19"
+    "url": "https://tiny.cc/digi-19",
+    "thumbnail": "/mini19.webp"
   },
   {
     "id": 20,
     "title": "Metalgreymon, la digievolución perfecta",
-    "url": "https://tiny.cc/digi-20"
+    "url": "https://tiny.cc/digi-20",
+    "thumbnail": "/mini20.webp"
   },
   {
     "id": 21,
     "title": "La gran aventura de Koromon en Tokio",
-    "url": "https://tiny.cc/digi-21"
+    "url": "https://tiny.cc/digi-21",
+    "thumbnail": "/mini21.webp"
   },
   {
     "id": 22,
     "title": "Demidevimon el pequeño demonio intrigante",
-    "url": "https://tiny.cc/digi-22"
+    "url": "https://tiny.cc/digi-22",
+    "thumbnail": "/mini22.webp"
   },
   {
     "id": 23,
     "title": "Mi amigo Weregarurumon",
-    "url": "https://tiny.cc/digi-23"
+    "url": "https://tiny.cc/digi-23",
+    "thumbnail": "/mini23.webp"
   },
   {
     "id": 24,
     "title": "El poder de Megakabuterimon",
-    "url": "https://tiny.cc/digi-24"
+    "url": "https://tiny.cc/digi-24",
+    "thumbnail": "/mini24.webp"
   },
   {
     "id": 25,
     "title": "Shogungekomon, el tirano durmiente",
-    "url": "https://tiny.cc/digi-25"
+    "url": "https://tiny.cc/digi-25",
+    "thumbnail": "/mini25.webp"
   },
   {
     "id": 26,
     "title": "Las brillantes alas de Garudamon",
-    "url": "https://tiny.cc/digi-26"
+    "url": "https://tiny.cc/digi-26",
+    "thumbnail": "/mini26.webp"
   },
   {
     "id": 27,
     "title": "El castillo de la oscuridad de Myotismon",
-    "url": "https://tiny.cc/digi-27"
+    "url": "https://tiny.cc/digi-27",
+    "thumbnail": "/mini27.webp"
   },
   {
     "id": 28,
     "title": "¡Persecución! ¡Hay que volver enseguida a Japón!",
-    "url": "https://tiny.cc/digi-28"
+    "url": "https://tiny.cc/digi-28",
+    "thumbnail": "/mini28.webp"
   },
   {
     "id": 29,
     "title": "Combate en Hikarigaoka contra Mammothmon",
-    "url": "https://tiny.cc/digi-29"
+    "url": "https://tiny.cc/digi-29",
+    "thumbnail": "/mini29.webp"
   },
   {
     "id": 30,
     "title": "La gran travesía de los Digimon por Tokio",
-    "url": "https://tiny.cc/digi-30"
+    "url": "https://tiny.cc/digi-30",
+    "thumbnail": "/mini30.webp"
   },
   {
     "id": 31,
     "title": "Raremon ataca en la bahía de Tokio",
-    "url": "https://tiny.cc/digi-31"
+    "url": "https://tiny.cc/digi-31",
+    "thumbnail": "/mini31.webp"
   },
   {
     "id": 32,
     "title": "Skullmeramon y la ardiente torre de Tokio",
-    "url": "https://tiny.cc/digi-32"
+    "url": "https://tiny.cc/digi-32",
+    "thumbnail": "/mini32.webp"
   },
   {
     "id": 33,
     "title": "Pumpkinmon y Gotsumon. Dos Digimons de Shibuya",
-    "url": "https://tiny.cc/digi-33"
+    "url": "https://tiny.cc/digi-33",
+    "thumbnail": "/mini33.webp"
   },
   {
     "id": 34,
     "title": "Los lazos del destino de Gatomon",
-    "url": "https://tiny.cc/digi-34"
+    "url": "https://tiny.cc/digi-34",
+    "thumbnail": "/mini34.webp"
   },
   {
     "id": 35,
     "title": "Ha florecido Lilymon, el hada de Odaiba",
-    "url": "https://tiny.cc/digi-35"
+    "url": "https://tiny.cc/digi-35",
+    "thumbnail": "/mini35.webp"
   },
   {
     "id": 36,
     "title": "El explosivo golpe de Zudomon",
-    "url": "https://tiny.cc/digi-36"
+    "url": "https://tiny.cc/digi-36",
+    "thumbnail": "/mini36.webp"
   },
   {
     "id": 37,
     "title": "El ataque de los Digimon perfectos. La radiante Angewomon",
-    "url": "https://tiny.cc/digi-37"
+    "url": "https://tiny.cc/digi-37",
+    "thumbnail": "/mini37.webp"
   },
   {
     "id": 38,
     "title": "Venommyotismon, el rey demonio",
-    "url": "https://tiny.cc/digi-38"
+    "url": "https://tiny.cc/digi-38",
+    "thumbnail": "/mini38.webp"
   },
   {
     "id": 39,
     "title": "Dos ultradigievoluciones. ¡Acabemos con la oscuridad!",
-    "url": "https://tiny.cc/digi-39"
+    "url": "https://tiny.cc/digi-39",
+    "thumbnail": "/mini39.webp"
   },
   {
     "id": 40,
     "title": "Los Amos Oscuros. Los cuatro emperadores de la montaña del mal",
-    "url": "https://tiny.cc/digi-40"
+    "url": "https://tiny.cc/digi-40",
+    "thumbnail": "/mini40.webp"
   },
   {
     "id": 41,
     "title": "Metalseadramon el furioso rey del mar",
-    "url": "https://tiny.cc/digi-41"
+    "url": "https://tiny.cc/digi-41",
+    "thumbnail": "/mini41.webp"
   },
   {
     "id": 42,
     "title": "Whamon y el silencioso fondo del mar",
-    "url": "https://tiny.cc/digi-42"
+    "url": "https://tiny.cc/digi-42",
+    "thumbnail": "/mini42.webp"
   },
   {
     "id": 43,
     "title": "El peligroso juego de Puppetmon",
-    "url": "https://tiny.cc/digi-43"
+    "url": "https://tiny.cc/digi-43",
+    "thumbnail": "/mini43.webp"
   },
   {
     "id": 44,
     "title": "Cherrymon, el rey del bosque de la confusión",
-    "url": "https://tiny.cc/digi-44"
+    "url": "https://tiny.cc/digi-44",
+    "thumbnail": "/mini44.webp"
   },
   {
     "id": 45,
     "title": "Wargreymon contra Metalgarurumon",
-    "url": "https://tiny.cc/digi-45"
+    "url": "https://tiny.cc/digi-45",
+    "thumbnail": "/mini45.webp"
   },
   {
     "id": 46,
     "title": "El contraataque de Metaletemon",
-    "url": "https://tiny.cc/digi-46"
+    "url": "https://tiny.cc/digi-46",
+    "thumbnail": "/mini46.webp"
   },
   {
     "id": 47,
     "title": "Viento, luz, Saberleomon",
-    "url": "https://tiny.cc/digi-47"
+    "url": "https://tiny.cc/digi-47",
+    "thumbnail": "/mini47.webp"
   },
   {
     "id": 48,
     "title": "La orden de bombardeo de Machinedramon",
-    "url": "https://tiny.cc/digi-48"
+    "url": "https://tiny.cc/digi-48",
+    "thumbnail": "/mini48.webp"
   },
   {
     "id": 49,
     "title": "Adiós a los Numemon",
-    "url": "https://tiny.cc/digi-49"
+    "url": "https://tiny.cc/digi-49",
+    "thumbnail": "/mini49.webp"
   },
   {
     "id": 50,
     "title": "Ladydevimon y la lucha de las chicas",
-    "url": "https://tiny.cc/digi-50"
+    "url": "https://tiny.cc/digi-50",
+    "thumbnail": "/mini50.webp"
   },
   {
     "id": 51,
     "title": "Piedmon, el payaso infernal",
-    "url": "https://tiny.cc/digi-51"
+    "url": "https://tiny.cc/digi-51",
+    "thumbnail": "/mini51.webp"
   },
   {
     "id": 52,
     "title": "Magnaangemon, el caballero sagrado",
-    "url": "https://tiny.cc/digi-52"
+    "url": "https://tiny.cc/digi-52",
+    "thumbnail": "/mini52.webp"
   },
   {
     "id": 53,
     "title": "El último Digimon oscuro",
-    "url": "https://tiny.cc/digi-53"
+    "url": "https://tiny.cc/digi-53",
+    "thumbnail": "/mini53.webp"
   },
-  { "id": 54, "title": "Un nuevo mundo", "url": "https://tiny.cc/digi-54" }
+  {
+    "id": 54,
+    "title": "Un nuevo mundo",
+    "url": "https://tiny.cc/digi-54",
+    "thumbnail": "/mini54.webp"
+  }
 ]

@@ -1,68 +1,130 @@
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import episodes from "../data/episodes.json";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [vistos, setVistos] = useState([]);
+  const router = useRouter();
 
-  // Leer vistos del localStorage al cargar
   useEffect(() => {
-    const guardados = JSON.parse(localStorage.getItem("vistos") || "[]");
-    setVistos(guardados);
+    const storage = JSON.parse(localStorage.getItem("vistos") || "[]");
+    setVistos(storage);
   }, []);
 
-  // Alternar estado de un capítulo (visto/no visto)
-  const toggleVisto = (id) => {
-    const actualizados = vistos.includes(id)
-      ? vistos.filter((v) => v !== id)
-      : [...vistos, id];
-    setVistos(actualizados);
-    localStorage.setItem("vistos", JSON.stringify(actualizados));
+  const toggleVisto = (id, e) => {
+    e.stopPropagation(); // no dispares la navegación
+    let updated;
+    if (vistos.includes(id)) {
+      updated = vistos.filter((ep) => ep !== id);
+    } else {
+      updated = [...vistos, id];
+    }
+    setVistos(updated);
+    localStorage.setItem("vistos", JSON.stringify(updated));
   };
 
-  // Resetear progreso
-  const resetVistos = () => {
+  const handleCardClick = (id) => {
+    // al abrir un episodio se marca como visto automáticamente
+    if (!vistos.includes(id)) {
+      const updated = [...vistos, id];
+      setVistos(updated);
+      localStorage.setItem("vistos", JSON.stringify(updated));
+    }
+    router.push(`/ver/${id}`);
+  };
+
+  const borrarProgreso = () => {
     localStorage.removeItem("vistos");
     setVistos([]);
   };
 
+  const progreso = Math.round((vistos.length / episodes.length) * 100);
+  const bannerImg = "/header.jpg";
+
   return (
     <div className={styles.container}>
-      <img src="/header.jpg" alt="Digimon Header" className={styles.banner} />
+      {/* --- HERO HEADER --- */}
+      <header
+        className={styles.hero}
+        style={{ backgroundImage: `url(${bannerImg})` }}
+      >
+        <div className={styles.overlay}>
+          <h1 className={styles.title}>Digimon Adventure</h1>
 
-      <header className={styles.header}>
-        <h1>📺 Digimon Adventure</h1>
+          <div className={styles.progressWrapper}>
+            <div
+              className={styles.progressBar}
+              aria-label="Progreso de visualización"
+            >
+              <div
+                className={styles.progressFill}
+                style={{ width: `${progreso}%` }}
+              />
+            </div>
+            <p className={styles.progressText}>
+              {vistos.length} / {episodes.length} episodios vistos
+            </p>
+          </div>
+
+          <button onClick={borrarProgreso} className={styles.resetBtn}>
+            Borrar progreso
+          </button>
+        </div>
       </header>
 
-      <div className={styles.resetContainer}>
-        <button className={styles.resetBtn} onClick={resetVistos}>
-          🧹 Borrar progreso
-        </button>
-      </div>
-
-      <div className={styles.grid}>
+      {/* --- GRID DE EPISODIOS --- */}
+      <main className={styles.grid}>
         {episodes.map((ep) => (
-          <div key={ep.id} className={styles.card}>
-            <div className={styles.cardTop}>
-              <span className={styles.number}>Ep {ep.id}</span>
-              <button
-                className={`${styles.checkBtn} ${
-                  vistos.includes(ep.id) ? styles.visto : ""
-                }`}
-                onClick={() => toggleVisto(ep.id)}
-                title="Marcar como visto/no visto"
-              >
-                ✔
-              </button>
+          <div
+            key={ep.id}
+            className={styles.card}
+            onClick={() => handleCardClick(ep.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) =>
+              (e.key === "Enter" || e.key === " ") && handleCardClick(ep.id)
+            }
+            aria-label={`Reproducir episodio ${ep.id}: ${ep.title}`}
+          >
+            <div className={styles.thumbWrapper}>
+              <img
+                src={
+                  ep.thumbnail || `/mini${String(ep.id).padStart(2, "0")}.webp`
+                }
+                alt={ep.title}
+                className={styles.thumbnail}
+              />
+
+              <div className={styles.hoverOverlay}>
+                <span className={styles.playIcon}>▶</span>
+              </div>
+              {vistos.includes(ep.id) && (
+                <span className={styles.watchedMark}>✓</span>
+              )}
             </div>
 
-            <Link href={`/ver/${ep.id}`} className={styles.title}>
-              {ep.title}
-            </Link>
+            <h2 className={styles.epTitle}>
+              {ep.id}. {ep.title}
+            </h2>
+
+            <button
+              className={`${styles.vistoBtn} ${
+                vistos.includes(ep.id) ? styles.vistoActivo : ""
+              }`}
+              onClick={(e) => toggleVisto(ep.id, e)}
+              aria-pressed={vistos.includes(ep.id)}
+              aria-label={
+                vistos.includes(ep.id)
+                  ? "Marcar como no visto"
+                  : "Marcar como visto"
+              }
+            >
+              {vistos.includes(ep.id) ? "Visto" : "Marcar visto"}
+            </button>
           </div>
         ))}
-      </div>
+      </main>
     </div>
   );
 }

@@ -1,0 +1,94 @@
+.badge {
+  --bg: rgba(0, 0, 0, 0.6);
+  --bg-hover: rgba(0, 0, 0, 0.75);
+  --border: rgba(255, 255, 255, 0.15);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  backdrop-filter: blur(2px);
+}
+
+.badge:hover {
+  background: var(--bg-hover);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+.fixedTopRight {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
+.compact {
+  padding: 6px 8px;
+}
+
+/* Contenedor del logo */
+.logo {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  transition: transform 0.6s ease;
+  overflow: hidden;
+}
+
+.imgLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Rotación en hover */
+.badge:hover .logo {
+  transform: rotate(360deg);
+}
+
+/* Texto oculto por defecto, aparece al hover */
+.textWrap {
+  display: inline-flex;
+  gap: 4px;
+  align-items: baseline;
+  opacity: 0;
+  max-width: 0;
+  transform: translateX(-4px);
+  white-space: nowrap;
+  transition: opacity 0.25s ease, transform 0.25s ease, max-width 0.25s ease;
+}
+
+.badge:hover .textWrap {
+  opacity: 1;
+  transform: translateX(0);
+  max-width: 280px;
+}
+
+.textLabel {
+  color: #e9e9e9;
+  font-size: 0.9rem;
+  letter-spacing: 0.1px;
+}
+
+.link {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.link:hover {
+  color: #ffd18a;
+  text-shadow: 0 0 10px rgba(255, 217, 135, 0.35);
+}
