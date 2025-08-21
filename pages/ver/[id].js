@@ -29,12 +29,12 @@ function buildDrivePreviewUrl(id) {
 }
 
 /** ===== Tiempos de salto (segundos) =====
- * Opening: 00:00 → 01:34  ⇒ saltar a 01:32 (92s)
+ * Opening: 00:00 → 01:34  ⇒ usar 01:32 (92s)
  * Resumen: 01:34 → 02:05  ⇒ saltar a 02:05 (125s)
  */
-const SKIP_INTRO_TO = 92; // 1:32
+const INTRO_END = 92; // 1:32 (fin de opening)
+const SKIP_INTRO_TO = INTRO_END; // usar mismo valor para salto
 const SKIP_RECAP_TO = 125; // 2:05
-const INTRO_END = 94; // 1:34 (para ocultar el botón si ya pasó)
 const RECAP_END = 125; // 2:05 (igual que salto)
 
 /** ===== Componente principal ===== */
@@ -85,14 +85,14 @@ export default function VerEpisodio() {
 
   // Controles de visibilidad de botones de salto
   const [showSkipIntro, setShowSkipIntro] = useState(true);
-  const [showSkipRecap, setShowSkipRecap] = useState(true);
+  const [showSkipRecap, setShowSkipRecap] = useState(false);
 
   // Reset al cambiar de episodio
   useEffect(() => {
     setSrcIndex(0);
     setUseIframePreview(false);
     setShowSkipIntro(true);
-    setShowSkipRecap(true);
+    setShowSkipRecap(false);
   }, [episodeId]);
 
   // Autoplay al poder reproducir (HTML5)
@@ -103,7 +103,7 @@ export default function VerEpisodio() {
     const onCanPlay = async () => {
       // Reinicia estado de botones al cargar fuente nueva
       setShowSkipIntro(true);
-      setShowSkipRecap(true);
+      setShowSkipRecap(false);
 
       if (shouldAutoplay) {
         try {
@@ -118,7 +118,8 @@ export default function VerEpisodio() {
     const onTimeUpdate = () => {
       const t = v.currentTime || 0;
       if (t >= INTRO_END) setShowSkipIntro(false);
-      if (t >= RECAP_END) setShowSkipRecap(false);
+      if (t >= INTRO_END && t < RECAP_END) setShowSkipRecap(true);
+      else if (t >= RECAP_END) setShowSkipRecap(false);
     };
 
     v.addEventListener("canplay", onCanPlay);
@@ -227,6 +228,12 @@ export default function VerEpisodio() {
           </>
         )}
       </div>
+
+      {useIframePreview && (
+        <p className={styles.iframeNotice}>
+          Este reproductor no permite saltar intro ni resumen.
+        </p>
+      )}
 
       {/* Navegación entre episodios */}
       <div className={styles.nav}>

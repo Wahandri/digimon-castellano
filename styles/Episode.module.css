@@ -69,6 +69,14 @@
   top: 60px;
 } /* “Saltar intro”   */
 
+/* Aviso cuando se usa el reproductor en iframe */
+.iframeNotice {
+  margin-top: -1rem;
+  text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
 .nav {
   display: flex;
   justify-content: center;
