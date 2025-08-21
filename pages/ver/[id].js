@@ -7,11 +7,9 @@ import styles from "../../styles/Episode.module.css";
 /** ===== Utilidades Google Drive ===== **/
 function extractDriveId(rawUrl = "") {
   try {
-    // /file/d/ID/...
-    const m1 = rawUrl.match(/\/file\/d\/([^/]+)\//);
+    const m1 = rawUrl.match(/\/file\/d\/([^/]+)\//); // /file/d/ID/...
     if (m1?.[1]) return m1[1];
-    // open?id=ID  |  uc?export=download&id=ID
-    const u = new URL(rawUrl);
+    const u = new URL(rawUrl); // open?id=ID | uc?export=download&id=ID
     const qid = u.searchParams.get("id");
     if (qid) return qid;
     const m2 = rawUrl.match(/[?&]id=([^&]+)/);
@@ -19,7 +17,6 @@ function extractDriveId(rawUrl = "") {
   } catch {}
   return null;
 }
-
 function buildDriveCandidates(id) {
   return [
     `https://drive.usercontent.google.com/uc?id=${id}&export=download`,
@@ -27,11 +24,20 @@ function buildDriveCandidates(id) {
     `https://lh3.googleusercontent.com/uc?export=download&id=${id}`,
   ];
 }
-
 function buildDrivePreviewUrl(id) {
   return `https://drive.google.com/file/d/${id}/preview`;
 }
 
+/** ===== Tiempos de salto (segundos) =====
+ * Opening: 00:00 → 01:34  ⇒ saltar a 01:32 (92s)
+ * Resumen: 01:34 → 02:05  ⇒ saltar a 02:05 (125s)
+ */
+const SKIP_INTRO_TO = 92; // 1:32
+const SKIP_RECAP_TO = 125; // 2:05
+const INTRO_END = 94; // 1:34 (para ocultar el botón si ya pasó)
+const RECAP_END = 125; // 2:05 (igual que salto)
+
+/** ===== Componente principal ===== */
 export default function VerEpisodio() {
   const router = useRouter();
   const { id, autoplay: autoplayQuery } = router.query;
@@ -50,7 +56,7 @@ export default function VerEpisodio() {
     [episodeId]
   );
 
-  // Marcar como visto al abrir (nombre "vistos" consistente)
+  // Guardar 'vistos' al abrir
   useEffect(() => {
     if (!episodeId) return;
     const vistos = JSON.parse(localStorage.getItem("vistos") || "[]");
@@ -68,38 +74,62 @@ export default function VerEpisodio() {
     () => (driveId ? buildDriveCandidates(driveId) : []),
     [driveId]
   );
+  const previewSrc = driveId
+    ? buildDrivePreviewUrl(driveId)
+    : episode?.url || "";
 
+  // Estado de reproducción / fallbacks
   const [srcIndex, setSrcIndex] = useState(0);
   const [useIframePreview, setUseIframePreview] = useState(false);
   const videoRef = useRef(null);
+
+  // Controles de visibilidad de botones de salto
+  const [showSkipIntro, setShowSkipIntro] = useState(true);
+  const [showSkipRecap, setShowSkipRecap] = useState(true);
 
   // Reset al cambiar de episodio
   useEffect(() => {
     setSrcIndex(0);
     setUseIframePreview(false);
+    setShowSkipIntro(true);
+    setShowSkipRecap(true);
   }, [episodeId]);
 
-  // Autoplay al cargar (muted por políticas de navegador)
+  // Autoplay al poder reproducir (HTML5)
   useEffect(() => {
     const v = videoRef.current;
     if (!v || useIframePreview) return;
 
     const onCanPlay = async () => {
+      // Reinicia estado de botones al cargar fuente nueva
+      setShowSkipIntro(true);
+      setShowSkipRecap(true);
+
       if (shouldAutoplay) {
         try {
           v.muted = true;
           await v.play();
         } catch {
-          // El usuario podrá pulsar play manualmente si el navegador lo bloquea
+          /* si el navegador bloquea, el usuario podrá darle a play manualmente */
         }
       }
     };
 
+    const onTimeUpdate = () => {
+      const t = v.currentTime || 0;
+      if (t >= INTRO_END) setShowSkipIntro(false);
+      if (t >= RECAP_END) setShowSkipRecap(false);
+    };
+
     v.addEventListener("canplay", onCanPlay);
-    return () => v.removeEventListener("canplay", onCanPlay);
+    v.addEventListener("timeupdate", onTimeUpdate);
+    return () => {
+      v.removeEventListener("canplay", onCanPlay);
+      v.removeEventListener("timeupdate", onTimeUpdate);
+    };
   }, [srcIndex, shouldAutoplay, useIframePreview]);
 
-  // Si falla una fuente, probar la siguiente; si no quedan, usar preview (sin onEnded)
+  // Si una fuente falla → probar siguiente; si no quedan → preview (sin saltos)
   const handleVideoError = () => {
     if (srcIndex < candidates.length - 1) {
       setSrcIndex((i) => i + 1);
@@ -108,14 +138,23 @@ export default function VerEpisodio() {
     }
   };
 
-  // Al terminar → ir al siguiente con autoplay
   const handleEnded = () => {
     if (next) router.push(`/ver/${next.id}?autoplay=1`);
   };
 
-  // Botones
+  // Acciones
   const goPrev = () => prev && router.push(`/ver/${prev.id}`);
   const goNext = () => next && router.push(`/ver/${next.id}?autoplay=1`);
+
+  const skipTo = (seconds) => {
+    const v = videoRef.current;
+    if (!v) return;
+    try {
+      v.currentTime = seconds;
+      // pequeña ayuda para reanudar si quedó pausado
+      v.play().catch(() => {});
+    } catch {}
+  };
 
   if (!episode) {
     return (
@@ -127,7 +166,6 @@ export default function VerEpisodio() {
   }
 
   const currentSrc = candidates[srcIndex];
-  const previewSrc = driveId ? buildDrivePreviewUrl(driveId) : episode.url;
 
   return (
     <div className={styles.container}>
@@ -139,6 +177,7 @@ export default function VerEpisodio() {
       </header>
 
       <div className={styles.videoWrapper}>
+        {/* Reproductor principal */}
         {!useIframePreview && currentSrc ? (
           <video
             key={currentSrc}
@@ -150,12 +189,7 @@ export default function VerEpisodio() {
             playsInline
             onEnded={handleEnded}
             onError={handleVideoError}
-            style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: 12,
-              background: "#000",
-            }}
+            className={styles.videoEl}
           />
         ) : (
           <iframe
@@ -165,17 +199,36 @@ export default function VerEpisodio() {
             allowFullScreen
             loading="lazy"
             title={episode.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              border: "none",
-              borderRadius: 12,
-              background: "#000",
-            }}
+            className={styles.iframeEl}
           />
+        )}
+
+        {/* Botones de salto (solo en modo video HTML5) */}
+        {!useIframePreview && currentSrc && (
+          <>
+            {showSkipRecap && (
+              <button
+                className={`${styles.skipBtn} ${styles.skipTop}`}
+                onClick={() => skipTo(SKIP_RECAP_TO)}
+                title="Saltar resumen"
+              >
+                ⏭ Saltar resumen
+              </button>
+            )}
+            {showSkipIntro && (
+              <button
+                className={`${styles.skipBtn} ${styles.skipBelow}`}
+                onClick={() => skipTo(SKIP_INTRO_TO)}
+                title="Saltar intro"
+              >
+                ⏭ Saltar intro
+              </button>
+            )}
+          </>
         )}
       </div>
 
+      {/* Navegación entre episodios */}
       <div className={styles.nav}>
         <button className={styles.navBtn} onClick={goPrev} disabled={!prev}>
           ⬅ Anterior
