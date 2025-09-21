@@ -1,22 +1,31 @@
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import episodes from "../../data/episodes.json";
-import styles from "../../styles/Episode.module.css";
+import styles from "@/styles/Episode.module.css";
+import { ensureEpisodeMarked } from "@/utils/progressStorage";
 
-/** ===== Utilidades Google Drive ===== **/
+const INTRO_END = 92;
+const SKIP_INTRO_TO = INTRO_END;
+const SKIP_RECAP_TO = 125;
+const RECAP_END = 125;
+
 function extractDriveId(rawUrl = "") {
   try {
-    const m1 = rawUrl.match(/\/file\/d\/([^/]+)\//); // /file/d/ID/...
-    if (m1?.[1]) return m1[1];
-    const u = new URL(rawUrl); // open?id=ID | uc?export=download&id=ID
-    const qid = u.searchParams.get("id");
-    if (qid) return qid;
-    const m2 = rawUrl.match(/[?&]id=([^&]+)/);
-    if (m2?.[1]) return m2[1];
-  } catch {}
+    const matchByPath = rawUrl.match(/\/file\/d\/([^/]+)\//);
+    if (matchByPath?.[1]) return matchByPath[1];
+
+    const parsed = new URL(rawUrl);
+    const queryId = parsed.searchParams.get("id");
+    if (queryId) return queryId;
+
+    const matchByQuery = rawUrl.match(/[?&]id=([^&]+)/);
+    if (matchByQuery?.[1]) return matchByQuery[1];
+  } catch {
+    // Ignorar errores de URL inválidas.
+  }
   return null;
 }
+
 function buildDriveCandidates(id) {
   return [
     `https://drive.usercontent.google.com/uc?id=${id}&export=download`,
@@ -24,46 +33,42 @@ function buildDriveCandidates(id) {
     `https://lh3.googleusercontent.com/uc?export=download&id=${id}`,
   ];
 }
+
 function buildDrivePreviewUrl(id) {
   return `https://drive.google.com/file/d/${id}/preview`;
 }
 
-/** ===== Tiempos de salto (segundos) =====
- * Opening: 00:00 → 01:34  ⇒ usar 01:32 (92s)
- * Resumen: 01:34 → 02:05  ⇒ saltar a 02:05 (125s)
- */
-const INTRO_END = 92; // 1:32 (fin de opening)
-const SKIP_INTRO_TO = INTRO_END; // usar mismo valor para salto
-const SKIP_RECAP_TO = 125; // 2:05
-const RECAP_END = 125; // 2:05 (igual que salto)
-
-/** ===== Componente principal ===== */
-export default function VerEpisodio() {
+export default function EpisodePlayerPage({
+  episodes,
+  storageKey,
+  legacyStorageKeys = [],
+  basePath,
+  backHref,
+  backLabel = "← Volver al listado",
+  notFoundLabel = "Episodio no encontrado",
+  resumeNotice = "Este reproductor no permite saltar intro ni resumen.",
+}) {
   const router = useRouter();
   const { id, autoplay: autoplayQuery } = router.query;
   const episodeId = Number(id);
 
   const episode = useMemo(
-    () => episodes.find((e) => e.id === episodeId),
-    [episodeId]
+    () => episodes.find((item) => item.id === episodeId),
+    [episodes, episodeId]
   );
   const prev = useMemo(
-    () => episodes.find((e) => e.id === episodeId - 1),
-    [episodeId]
+    () => episodes.find((item) => item.id === episodeId - 1),
+    [episodes, episodeId]
   );
   const next = useMemo(
-    () => episodes.find((e) => e.id === episodeId + 1),
-    [episodeId]
+    () => episodes.find((item) => item.id === episodeId + 1),
+    [episodes, episodeId]
   );
 
-  // Guardar 'vistos' al abrir
   useEffect(() => {
     if (!episodeId) return;
-    const vistos = JSON.parse(localStorage.getItem("vistos") || "[]");
-    if (!vistos.includes(episodeId)) {
-      localStorage.setItem("vistos", JSON.stringify([...vistos, episodeId]));
-    }
-  }, [episodeId]);
+    ensureEpisodeMarked(storageKey, episodeId, legacyStorageKeys);
+  }, [episodeId, storageKey, legacyStorageKeys]);
 
   const shouldAutoplay = String(autoplayQuery) === "1";
   const driveId = useMemo(
@@ -78,16 +83,13 @@ export default function VerEpisodio() {
     ? buildDrivePreviewUrl(driveId)
     : episode?.url || "";
 
-  // Estado de reproducción / fallbacks
   const [srcIndex, setSrcIndex] = useState(0);
   const [useIframePreview, setUseIframePreview] = useState(false);
   const videoRef = useRef(null);
 
-  // Controles de visibilidad de botones de salto
   const [showSkipIntro, setShowSkipIntro] = useState(true);
   const [showSkipRecap, setShowSkipRecap] = useState(false);
 
-  // Reset al cambiar de episodio
   useEffect(() => {
     setSrcIndex(0);
     setUseIframePreview(false);
@@ -95,73 +97,80 @@ export default function VerEpisodio() {
     setShowSkipRecap(false);
   }, [episodeId]);
 
-  // Autoplay al poder reproducir (HTML5)
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v || useIframePreview) return;
+    const videoEl = videoRef.current;
+    if (!videoEl || useIframePreview) return;
 
-    const onCanPlay = async () => {
-      // Reinicia estado de botones al cargar fuente nueva
+    const handleCanPlay = async () => {
       setShowSkipIntro(true);
       setShowSkipRecap(false);
 
       if (shouldAutoplay) {
         try {
-          v.muted = true;
-          await v.play();
+          videoEl.muted = true;
+          await videoEl.play();
         } catch {
-          /* si el navegador bloquea, el usuario podrá darle a play manualmente */
+          // Si el navegador bloquea la reproducción automática, el usuario podrá iniciar manualmente.
         }
       }
     };
 
-    const onTimeUpdate = () => {
-      const t = v.currentTime || 0;
-      if (t >= INTRO_END) setShowSkipIntro(false);
-      if (t >= INTRO_END && t < RECAP_END) setShowSkipRecap(true);
-      else if (t >= RECAP_END) setShowSkipRecap(false);
+    const handleTimeUpdate = () => {
+      const currentTime = videoEl.currentTime || 0;
+      if (currentTime >= INTRO_END) setShowSkipIntro(false);
+      if (currentTime >= INTRO_END && currentTime < RECAP_END)
+        setShowSkipRecap(true);
+      else if (currentTime >= RECAP_END) setShowSkipRecap(false);
     };
 
-    v.addEventListener("canplay", onCanPlay);
-    v.addEventListener("timeupdate", onTimeUpdate);
+    videoEl.addEventListener("canplay", handleCanPlay);
+    videoEl.addEventListener("timeupdate", handleTimeUpdate);
     return () => {
-      v.removeEventListener("canplay", onCanPlay);
-      v.removeEventListener("timeupdate", onTimeUpdate);
+      videoEl.removeEventListener("canplay", handleCanPlay);
+      videoEl.removeEventListener("timeupdate", handleTimeUpdate);
     };
-  }, [srcIndex, shouldAutoplay, useIframePreview]);
+  }, [shouldAutoplay, srcIndex, useIframePreview]);
 
-  // Si una fuente falla → probar siguiente; si no quedan → preview (sin saltos)
   const handleVideoError = () => {
     if (srcIndex < candidates.length - 1) {
-      setSrcIndex((i) => i + 1);
+      setSrcIndex((index) => index + 1);
     } else {
       setUseIframePreview(true);
     }
   };
 
   const handleEnded = () => {
-    if (next) router.push(`/ver/${next.id}?autoplay=1`);
+    if (next) {
+      router.push(`${basePath}/ver/${next.id}?autoplay=1`);
+    }
   };
 
-  // Acciones
-  const goPrev = () => prev && router.push(`/ver/${prev.id}`);
-  const goNext = () => next && router.push(`/ver/${next.id}?autoplay=1`);
+  const goPrev = () => {
+    if (prev) router.push(`${basePath}/ver/${prev.id}`);
+  };
+
+  const goNext = () => {
+    if (next) router.push(`${basePath}/ver/${next.id}?autoplay=1`);
+  };
 
   const skipTo = (seconds) => {
-    const v = videoRef.current;
-    if (!v) return;
+    const videoEl = videoRef.current;
+    if (!videoEl) return;
     try {
-      v.currentTime = seconds;
-      // pequeña ayuda para reanudar si quedó pausado
-      v.play().catch(() => {});
-    } catch {}
+      videoEl.currentTime = seconds;
+      videoEl.play().catch(() => {});
+    } catch {
+      // Ignoramos si el navegador no permite modificar el tiempo.
+    }
   };
+
+  const resolvedBackHref = backHref || basePath;
 
   if (!episode) {
     return (
       <div className={styles.container}>
-        <h1>Episodio no encontrado</h1>
-        <Link href="/">Volver al inicio</Link>
+        <h1>{notFoundLabel}</h1>
+        <Link href={resolvedBackHref}>{backLabel}</Link>
       </div>
     );
   }
@@ -171,14 +180,13 @@ export default function VerEpisodio() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <Link href="/" className={styles.back}>
-          ← Inicio
+        <Link href={resolvedBackHref} className={styles.back}>
+          {backLabel}
         </Link>
         <h1>{episode.title}</h1>
       </header>
 
       <div className={styles.videoWrapper}>
-        {/* Reproductor principal */}
         {!useIframePreview && currentSrc ? (
           <video
             key={currentSrc}
@@ -204,10 +212,9 @@ export default function VerEpisodio() {
           />
         )}
 
-        {/* Botones de salto (solo en modo video HTML5) */}
-        {!useIframePreview && currentSrc && (
+        {!useIframePreview && currentSrc ? (
           <>
-            {showSkipRecap && (
+            {showSkipRecap ? (
               <button
                 className={`${styles.skipBtn} ${styles.skipTop}`}
                 onClick={() => skipTo(SKIP_RECAP_TO)}
@@ -215,8 +222,8 @@ export default function VerEpisodio() {
               >
                 ⏭ Saltar resumen
               </button>
-            )}
-            {showSkipIntro && (
+            ) : null}
+            {showSkipIntro ? (
               <button
                 className={`${styles.skipBtn} ${styles.skipBelow}`}
                 onClick={() => skipTo(SKIP_INTRO_TO)}
@@ -224,18 +231,15 @@ export default function VerEpisodio() {
               >
                 ⏭ Saltar intro
               </button>
-            )}
+            ) : null}
           </>
-        )}
+        ) : null}
       </div>
 
-      {useIframePreview && (
-        <p className={styles.iframeNotice}>
-          Este reproductor no permite saltar intro ni resumen.
-        </p>
-      )}
+      {useIframePreview ? (
+        <p className={styles.iframeNotice}>{resumeNotice}</p>
+      ) : null}
 
-      {/* Navegación entre episodios */}
       <div className={styles.nav}>
         <button className={styles.navBtn} onClick={goPrev} disabled={!prev}>
           ⬅ Anterior
