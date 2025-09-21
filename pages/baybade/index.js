@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import episodes from "../data/episodes.json";
-import styles from "../styles/Home.module.css";
+import episodes from "../../data/beyblade.json";
+import styles from "../../styles/Home.module.css";
 
-export default function Home() {
+const STORAGE_KEY = "vistos_baybade";
+const PLACEHOLDER_THUMB = "/beyblade-placeholder.svg";
+const BANNER_IMAGE = "/beyblade-header.svg";
+
+export default function BeybladePage() {
   const [vistos, setVistos] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem("vistos") || "[]");
+    const storage = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     setVistos(storage);
   }, []);
 
   const toggleVisto = (id, e) => {
-    e.stopPropagation(); // no dispares la navegación
+    e.stopPropagation();
     let updated;
     if (vistos.includes(id)) {
       updated = vistos.filter((ep) => ep !== id);
@@ -22,45 +26,47 @@ export default function Home() {
       updated = [...vistos, id];
     }
     setVistos(updated);
-    localStorage.setItem("vistos", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
 
   const handleCardClick = (id) => {
-    // al abrir un episodio se marca como visto automáticamente
     if (!vistos.includes(id)) {
       const updated = [...vistos, id];
       setVistos(updated);
-      localStorage.setItem("vistos", JSON.stringify(updated));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     }
-    router.push(`/ver/${id}`);
+    router.push(`/baybade/ver/${id}`);
   };
 
   const borrarProgreso = () => {
-    localStorage.removeItem("vistos");
+    localStorage.removeItem(STORAGE_KEY);
     setVistos([]);
   };
 
   const progreso = Math.round((vistos.length / episodes.length) * 100);
-  const bannerImg = "/header.jpg";
+
+  const handleImgError = (event) => {
+    event.currentTarget.onerror = null;
+    event.currentTarget.src = PLACEHOLDER_THUMB;
+  };
 
   return (
     <div className={styles.container}>
-      {/* --- HERO HEADER --- */}
       <header
         className={styles.hero}
-        style={{ backgroundImage: `url(${bannerImg})` }}
+        style={{ backgroundImage: `url(${BANNER_IMAGE})` }}
       >
         <div className={styles.overlay}>
           <div className={styles.switchRow}>
-            <Link href="/baybade" className={styles.switchBtn}>
-              Ver Beyblade en castellano →
+            <Link href="/" className={styles.switchBtn}>
+              ← Volver a Digimon Adventure
             </Link>
           </div>
 
-          <h1 className={styles.title}>Digimon Adventure</h1>
+          <h1 className={styles.title}>Beyblade (Castellano)</h1>
 
           <p className={styles.subtitle}>
-            Sigue tu progreso y revive la primera temporada completa.
+            Marca tu progreso y disfruta de los 51 episodios clásicos.
           </p>
 
           <div className={styles.progressWrapper}>
@@ -84,7 +90,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* --- GRID DE EPISODIOS --- */}
       <main className={styles.grid}>
         {episodes.map((ep) => (
           <div
@@ -100,11 +105,10 @@ export default function Home() {
           >
             <div className={styles.thumbWrapper}>
               <img
-                src={
-                  ep.thumbnail || `/mini${String(ep.id).padStart(2, "0")}.webp`
-                }
+                src={ep.thumbnail}
                 alt={ep.title}
                 className={styles.thumbnail}
+                onError={handleImgError}
               />
 
               <div className={styles.hoverOverlay}>

@@ -37,6 +37,46 @@
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
 }
 
+.subtitle {
+  font-size: 1.1rem;
+  color: #f5f5f5;
+  margin-bottom: 18px;
+  letter-spacing: 0.3px;
+}
+
+.switchRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.switchBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.switchBtn:hover {
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+}
+
+.switchBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px #e50914, 0 10px 26px rgba(0, 0, 0, 0.55);
+}
+
 /* --- PROGRESO --- */
 .progressWrapper {
   margin: 0 auto 16px auto;
