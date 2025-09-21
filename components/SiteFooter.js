@@ -1,5 +1,5 @@
 import DevBadge from "./DevBadge";
-import styles from "../../styles/SiteFooter.module.css";
+import styles from "@/styles/SiteFooter.module.css";
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();

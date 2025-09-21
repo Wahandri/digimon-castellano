@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "../../styles/DevBadge.module.css";
+import styles from "@/styles/DevBadge.module.css";
 
 /**
  * DevBadge

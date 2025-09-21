@@ -1,0 +1,73 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: radial-gradient(circle at top, #2b4c7e, #0f172a);
+  color: #f8fafc;
+  text-align: center;
+}
+
+.panel {
+  max-width: 560px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 40px 80px rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #cbd5f5;
+  margin-bottom: 2.5rem;
+}
+
+.actions {
+  display: grid;
+  gap: 1rem;
+}
+
+.buttonPrimary,
+.buttonSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.5rem;
+  border-radius: 14px;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buttonPrimary {
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  color: #0f172a;
+  box-shadow: 0 20px 40px rgba(249, 115, 22, 0.35);
+}
+
+.buttonSecondary {
+  background: linear-gradient(135deg, #38bdf8, #3b82f6);
+  color: white;
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.35);
+}
+
+.buttonPrimary:hover,
+.buttonSecondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.35);
+}
+
+.buttonPrimary:focus,
+.buttonSecondary:focus {
+  outline: 3px solid rgba(148, 163, 184, 0.4);
+  outline-offset: 4px;
+}

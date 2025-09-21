@@ -1,6 +1,6 @@
 import "@/styles/globals.css"; // si tienes un globals, mantenlo; si no, ignóralo
-import DevBadge from "./components/DevBadge";
-import SiteFooter from "./components/SiteFooter";
+import DevBadge from "@/components/DevBadge";
+import SiteFooter from "@/components/SiteFooter";
 
 export default function App({ Component, pageProps }) {
   return (
