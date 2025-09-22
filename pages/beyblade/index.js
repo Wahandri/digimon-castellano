@@ -6,7 +6,7 @@ const LEGACY_KEYS = ["vistos_baybade"];
 const PLACEHOLDER_THUMB = "/beyblade-placeholder.svg";
 
 const HERO_CONFIG = {
-  title: "Beyblade (Castellano)",
+  title: "Beyblade",
   subtitle: "Marca tu progreso y disfruta de los 51 episodios clásicos.",
   bannerImage: "/beyblade-header.svg",
   switchLink: {
@@ -15,7 +15,8 @@ const HERO_CONFIG = {
   },
 };
 
-const getBeybladeThumbnail = (episode) => episode.thumbnail || PLACEHOLDER_THUMB;
+const getBeybladeThumbnail = (episode) =>
+  episode.thumbnail || PLACEHOLDER_THUMB;
 
 const handleThumbnailError = (event) => {
   event.currentTarget.onerror = null;

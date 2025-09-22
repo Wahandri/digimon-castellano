@@ -14,7 +14,7 @@ export default function Home() {
             Digimon Adventure
           </Link>
           <Link href="/beyblade" className={styles.buttonSecondary}>
-            Beyblade (castellano)
+            Beyblade
           </Link>
         </div>
       </main>
