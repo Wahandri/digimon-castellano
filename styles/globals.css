@@ -35,6 +35,14 @@ a {
   text-decoration: none;
 }
 
+.back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--foreground);
+  font-weight: 600;
+  padding: 5px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
