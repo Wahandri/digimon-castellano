@@ -8,7 +8,7 @@ const PLACEHOLDER_THUMB = "/beyblade-placeholder.svg";
 const HERO_CONFIG = {
   title: "Beyblade",
   subtitle: "Marca tu progreso y disfruta de los 51 episodios clásicos.",
-  bannerImage: "/beyblade-header.svg",
+  bannerImage: "/beyblade.jpg",
   switchLink: {
     href: "/digimon",
     label: "← Volver a Digimon Adventure",
