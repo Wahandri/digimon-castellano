@@ -19,6 +19,7 @@ export default function SeriesListPage({
 }) {
   const router = useRouter();
   const [seenEpisodes, setSeenEpisodes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const legacySignature = legacyStorageKeys.join("|");
 
@@ -62,6 +63,20 @@ export default function SeriesListPage({
     return Math.round((seenEpisodes.length / episodes.length) * 100);
   }, [episodes, seenEpisodes]);
 
+  const normalizedSearch = searchTerm.trim().toLowerCase();
+
+  const filteredEpisodes = useMemo(() => {
+    if (!normalizedSearch) return episodes;
+
+    return episodes.filter((episode) =>
+      episode.title.toLowerCase().includes(normalizedSearch)
+    );
+  }, [episodes, normalizedSearch]);
+
+  const handleSearchChange = useCallback((event) => {
+    setSearchTerm(event.target.value);
+  }, []);
+
   return (
     <div className={styles.container}>
       <header
@@ -82,6 +97,20 @@ export default function SeriesListPage({
           {hero.subtitle ? (
             <p className={styles.subtitle}>{hero.subtitle}</p>
           ) : null}
+
+          <div className={styles.searchWrapper}>
+            <label className={styles.searchLabel} htmlFor="episode-search">
+              Buscar capítulo
+            </label>
+            <input
+              id="episode-search"
+              type="search"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Escribe el nombre del capítulo"
+              className={styles.searchInput}
+            />
+          </div>
 
           <div className={styles.progressWrapper}>
             <div
@@ -108,7 +137,13 @@ export default function SeriesListPage({
       </header>
 
       <main className={styles.grid}>
-        {episodes.map((episode) => {
+        {filteredEpisodes.length === 0 ? (
+          <p className={styles.emptyState}>
+            No se encontraron capítulos con ese nombre.
+          </p>
+        ) : null}
+
+        {filteredEpisodes.map((episode) => {
           const thumbnailSrc = getEpisodeThumbnail(episode);
           const seen = seenEpisodes.includes(episode.id);
 
